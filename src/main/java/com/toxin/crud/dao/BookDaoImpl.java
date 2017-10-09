@@ -65,4 +65,19 @@ public class BookDaoImpl implements BookDao {
 
         return bookList;
     }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Book getBookByName(String searchTitle) {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<Book> bookList = session.createQuery("from Book where title =:title")
+                .setParameter("title", searchTitle)
+                .list();
+
+        for (Book book : bookList) {
+            logger.info("Book list: " + book);
+        }
+
+        return bookList.get(0);
+    }
 }

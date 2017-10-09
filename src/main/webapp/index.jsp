@@ -6,9 +6,9 @@
     </head>
     <body>
         <h3>JavaRush Internship</h3>
-        <br/>
         OMG IT WORKS!!!
         <br/>
-        <a href="<c:url value="/books"/>" target="_blank">GO TO BOOKS</a>
+        <br/>
+        <a href="<c:url value="/books"/>">GO TO BOOKS</a>
     </body>
 </html>

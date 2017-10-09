@@ -55,6 +55,20 @@
 
 <h1>BOOK LIST</h1>
 
+<c:url var="addAction" value="/books/search"/>
+
+<form:form action="${addAction}" commandName="book">
+    <table>
+        <tr>
+            <input type="text" name="searchTitle" id="searchTitle"
+                   placeholder="INPUT TITLE..."/>
+
+            <input type="submit"
+                   value="<spring:message text="SEARCH"/>"/>
+        </tr>
+    </table>
+</form:form>
+
 <c:if test="${!empty listBooks}">
     <table class="tg">
         <tr>
@@ -84,6 +98,35 @@
     </table>
 </c:if>
 
+<div id="pagination">
+    <c:url value="/books" var="prev">
+        <c:param name="page" value="${page-1}"/>
+    </c:url>
+    <c:if test="${page > 1}">
+        <a href="<c:out value="${prev}" />" class="pn prev">PREV</a>
+    </c:if>
+
+    <c:forEach begin="1" end="${maxPages}" step="1" varStatus="i">
+        <c:choose>
+            <c:when test="${page == i.index}">
+                <span>${i.index}</span>
+            </c:when>
+            <c:otherwise>
+                <c:url value="/books" var="url">
+                    <c:param name="page" value="${i.index}"/>
+                </c:url>
+                <a href='<c:out value="${url}" />'>${i.index}</a>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+    <c:url value="/books" var="next">
+        <c:param name="page" value="${page + 1}"/>
+    </c:url>
+    <c:if test="${page + 1 <= maxPages}">
+        <a href='<c:out value="${next}" />' class="pn next">NEXT</a>
+    </c:if>
+</div>
+
 <h1>ADD</h1>
 
 <c:url var="addAction" value="/books/add"/>
@@ -98,7 +141,7 @@
                     </form:label>
                 </td>
                 <td>
-                    <form:input path="id" readonly="true" size="8" disabled="true"/>
+                    <form:input path="id" readonly="true" disabled="true"/>
                     <form:hidden path="id"/>
                 </td>
             </tr>
@@ -129,9 +172,17 @@
                     <spring:message text="Author"/>
                 </form:label>
             </td>
+            <c:if test="${!empty book.title}">
+                <td>
+                    <form:input path="author" readonly="true" disabled="true"/>
+                    <form:hidden path="author"/>
+                </td>
+            </c:if>
+            <c:if test="${empty book.title}">
             <td>
                 <form:input path="author"/>
             </td>
+            </c:if>
         </tr>
         <tr>
             <td>
@@ -167,5 +218,6 @@
         </tr>
     </table>
 </form:form>
+
 </body>
 </html>

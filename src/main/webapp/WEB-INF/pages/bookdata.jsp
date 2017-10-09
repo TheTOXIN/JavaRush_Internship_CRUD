@@ -48,6 +48,7 @@
 </head>
 
 <body>
+<a href="../../index.jsp">BACK</a>
 <h1>BOOK DETAILS</h1>
 <table class="tg">
     <tr>
