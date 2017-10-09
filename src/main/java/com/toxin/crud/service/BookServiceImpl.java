@@ -35,6 +35,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
+    public void makeRead(boolean isUpdate, Book book) {
+        this.bookDao.makeRead(isUpdate, book);
+    }
+
+    @Override
+    @Transactional
     public Book getBookById(int id) {
         return this.bookDao.getBookById(id);
     }

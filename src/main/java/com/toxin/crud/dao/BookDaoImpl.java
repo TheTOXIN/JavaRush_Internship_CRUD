@@ -37,11 +37,24 @@ public class BookDaoImpl implements BookDao {
         Session session = this.sessionFactory.getCurrentSession();
         Book book = (Book) session.load(Book.class, id);
 
-        if(book!=null){
+        if(book != null){
             session.delete(book);
         }
 
         logger.info("Book successfully removed. Book details: " + book);
+    }
+
+    @Override
+    public void makeRead(boolean isUpdate, Book book) {
+        Session session = this.sessionFactory.getCurrentSession();
+
+        if (isUpdate)
+            book.setReadAlready(false);
+        else
+            book.setReadAlready(true);
+        session.update(book);
+
+        logger.info("Book is read update. Book details: " + book);
     }
 
     @Override

@@ -11,6 +11,8 @@ public interface BookDao {
 
     void removeBook(int id);
 
+    void makeRead(boolean isUpdate, Book book);
+
     Book getBookById(int id);
 
     List<Book> listBooks();
