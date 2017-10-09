@@ -38,13 +38,8 @@ public class BookController {
         model.addAttribute("page", page);
         currentPage = page;
 
-        if (page < 1 || page > pagedListHolder.getPageCount()) {
-            pagedListHolder.setPageSize(0);
-            model.addAttribute("listBooks", this.bookService.listBooks());
-        } else {
-            pagedListHolder.setPage(page - 1);
-            model.addAttribute("listBooks", this.bookService.listBooks());
-        }
+        pagedListHolder.setPage(page - 1);
+        model.addAttribute("listBooks", pagedListHolder.getPageList());
 
         return "books";
     }
